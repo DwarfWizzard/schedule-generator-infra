@@ -23,8 +23,13 @@ services:
     build: 
       context: ../schedule-generator
     environment:
-      API_PORT: 8008
+      API_PORT: ${API_PORT}
       POSTGRES_CONNECTION_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${NET_POSTGRES}:5432/${POSTGRES_DBNAME}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      ACCESS_TTL: ${ACCESS_TTL}
+      REFRESH_TTL: ${REFRESH_TTL}
+      PASSWORD_SALT: ${PASSWORD_SALT}
     ports: 
       - "8008:8008"
     networks:
@@ -47,10 +52,10 @@ services:
     build: 
       context: ../schedule-generator-web
       args:
-        - NEXT_PUBLIC_API_URL=http://localhost:8008
+        - NEXT_PUBLIC_API_URL=http://localhost:${API_PORT}
     environment:
-      NEXT_PUBLIC_API_URL: "http://localhost:8008"
-      API_URL: "http://backend:8008"
+      NEXT_PUBLIC_API_URL: "http://localhost:${API_PORT}"
+      API_URL: "http://backend:${API_PORT}"
     tty: true
     stdin_open: true
     ports: 
