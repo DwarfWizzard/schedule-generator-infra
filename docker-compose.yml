@@ -30,6 +30,7 @@ services:
       ACCESS_TTL: ${ACCESS_TTL}
       REFRESH_TTL: ${REFRESH_TTL}
       PASSWORD_SALT: ${PASSWORD_SALT}
+      MIGRATION: ${MIGRATION}
     ports: 
       - "8008:8008"
     networks:
@@ -52,9 +53,9 @@ services:
     build: 
       context: ../schedule-generator-web
       args:
-        - NEXT_PUBLIC_API_URL=http://localhost:${API_PORT}
+        - NEXT_PUBLIC_API_URL=http://{API_HOST}:${API_PORT}
     environment:
-      NEXT_PUBLIC_API_URL: "http://localhost:${API_PORT}"
+      NEXT_PUBLIC_API_URL: "http://{API_HOST}:${API_PORT}"
       API_URL: "http://backend:${API_PORT}"
     tty: true
     stdin_open: true
