@@ -37,7 +37,7 @@ services:
       back:
         ipv4_address: ${NET_API_SERVICE}
       default:
-    restart: on-failure
+    restart: always
     depends_on:
       - postgres
     links:
@@ -65,7 +65,7 @@ services:
       back:
         ipv4_address: ${NET_WEB}
       default:
-    restart: on-failure
+    restart: always
     depends_on:
       - postgres
       - backend
